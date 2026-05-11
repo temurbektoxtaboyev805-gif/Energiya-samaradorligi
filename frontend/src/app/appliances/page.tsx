@@ -28,6 +28,13 @@ export default function AppliancesPage() {
   const [loading, setLoading] = useState(true);
 
   const fetchAppliances = () => {
+    // Eski ma'lumotlarni tozalash (versiya tekshiruvi)
+    const version = localStorage.getItem('app_version');
+    if (version !== 'v2') {
+      localStorage.removeItem('appliances');
+      localStorage.setItem('app_version', 'v2');
+    }
+    
     const saved = localStorage.getItem('appliances');
     if (saved && JSON.parse(saved).length > 0) {
       setAppliances(JSON.parse(saved));

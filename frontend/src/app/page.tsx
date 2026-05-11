@@ -54,6 +54,14 @@ export default function Dashboard() {
 
   const fetchData = () => {
     let apps = [];
+    
+    // Eski ma'lumotlarni tozalash (versiya tekshiruvi)
+    const version = localStorage.getItem('app_version');
+    if (version !== 'v2') {
+      localStorage.removeItem('appliances');
+      localStorage.setItem('app_version', 'v2');
+    }
+    
     const savedApps = localStorage.getItem('appliances');
     
     if (savedApps && JSON.parse(savedApps).length > 0) {
