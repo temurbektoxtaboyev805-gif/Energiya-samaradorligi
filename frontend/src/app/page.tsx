@@ -208,9 +208,9 @@ export default function Dashboard() {
           <div className="lg:col-span-2 bg-slate-900 border border-slate-800 p-6 rounded-2xl">
             <div className="flex justify-between items-center mb-6">
               <h3 className="text-lg font-semibold">Mening jihozlarim</h3>
-              <button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm transition">
+              <Link href="/appliances" className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm transition">
                 <Plus size={16} /> Qo'shish
-              </button>
+              </Link>
             </div>
             <div className="space-y-4">
               {appliances.map(app => (
