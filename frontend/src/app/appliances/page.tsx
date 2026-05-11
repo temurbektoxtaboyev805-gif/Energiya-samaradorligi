@@ -29,7 +29,7 @@ export default function AppliancesPage() {
 
   const fetchAppliances = () => {
     const saved = localStorage.getItem('appliances');
-    if (saved) {
+    if (saved && JSON.parse(saved).length > 0) {
       setAppliances(JSON.parse(saved));
     } else {
       const demoApps = [

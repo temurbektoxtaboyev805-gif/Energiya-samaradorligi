@@ -56,10 +56,10 @@ export default function Dashboard() {
     let apps = [];
     const savedApps = localStorage.getItem('appliances');
     
-    if (savedApps) {
+    if (savedApps && JSON.parse(savedApps).length > 0) {
       apps = JSON.parse(savedApps);
     } else {
-      // Dastlabki namunaviy ma'lumotlar
+      // Dastlabki namunaviy ma'lumotlar (faqat ro'yxat bo'sh bo'lsa)
       apps = [
         { id: 1, name: 'Muzlatgich', power: 150, hours: 24 },
         { id: 2, name: 'Televizor', power: 100, hours: 5 },
