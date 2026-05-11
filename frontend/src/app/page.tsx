@@ -38,8 +38,15 @@ ChartJS.register(
   Legend
 );
 
+interface Appliance {
+  id: number;
+  name: string;
+  power: number;
+  hours: number;
+}
+
 export default function Dashboard() {
-  const [appliances, setAppliances] = useState([]);
+  const [appliances, setAppliances] = useState<Appliance[]>([]);
   const [totalKwh, setTotalKwh] = useState(0);
   const [totalCost, setTotalCost] = useState(0);
   const [loading, setLoading] = useState(true);
