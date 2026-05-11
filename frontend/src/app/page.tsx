@@ -12,8 +12,9 @@ import {
   Settings, 
   LayoutDashboard, 
   Plug, 
-  PieChart as PieIcon 
+  BarChart3 
 } from 'lucide-react';
+import Link from 'next/link';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -107,18 +108,18 @@ export default function Dashboard() {
         </div>
         
         <nav className="space-y-2 flex-1">
-          <a href="#" className="flex items-center gap-3 bg-blue-600/10 text-blue-400 p-3 rounded-xl">
+          <Link href="/" className="flex items-center gap-3 bg-blue-600/10 text-blue-400 p-3 rounded-xl">
             <LayoutDashboard size={20} /> Dashboard
-          </a>
-          <a href="#" className="flex items-center gap-3 text-slate-400 hover:bg-slate-800 p-3 rounded-xl transition">
+          </Link>
+          <Link href="/appliances" className="flex items-center gap-3 text-slate-400 hover:bg-slate-800 p-3 rounded-xl transition">
             <Plug size={20} /> Jihozlar
-          </a>
-          <a href="#" className="flex items-center gap-3 text-slate-400 hover:bg-slate-800 p-3 rounded-xl transition">
-            <PieIcon size={20} /> Tahlillar
-          </a>
-          <a href="#" className="flex items-center gap-3 text-slate-400 hover:bg-slate-800 p-3 rounded-xl transition">
+          </Link>
+          <Link href="/analytics" className="flex items-center gap-3 text-slate-400 hover:bg-slate-800 p-3 rounded-xl transition">
+            <BarChart3 size={20} /> Tahlillar
+          </Link>
+          <Link href="/recommendations" className="flex items-center gap-3 text-slate-400 hover:bg-slate-800 p-3 rounded-xl transition">
             <Lightbulb size={20} /> Tavsiyalar
-          </a>
+          </Link>
         </nav>
 
         <div className="pt-6 border-t border-slate-800 text-slate-500 text-sm">
