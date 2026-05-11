@@ -27,50 +27,42 @@ export default function AppliancesPage() {
   const [hours, setHours] = useState('');
   const [loading, setLoading] = useState(true);
 
-  const fetchAppliances = async () => {
-    try {
-      const res = await fetch('https://energymonitor-api-v2.azurewebsites.net/appliances');
-      const data = await res.json();
-      setAppliances(data);
-      setLoading(false);
-    } catch (error) {
-      console.error("Xatolik:", error);
-      setLoading(false);
+  const fetchAppliances = () => {
+    const saved = localStorage.getItem('appliances');
+    if (saved) {
+      setAppliances(JSON.parse(saved));
     }
+    setLoading(false);
   };
 
   useEffect(() => {
     fetchAppliances();
   }, []);
 
-  const addAppliance = async (e: React.FormEvent) => {
+  const addAppliance = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !power || !hours) return;
 
-    try {
-      const res = await fetch('https://energymonitor-api-v2.azurewebsites.net/appliances', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, power: parseFloat(power), hours: parseFloat(hours) }),
-      });
-      if (res.ok) {
-        setName('');
-        setPower('');
-        setHours('');
-        fetchAppliances();
-      }
-    } catch (error) {
-      console.error("Qo'shishda xatolik:", error);
-    }
+    const newApp = {
+      id: Date.now(),
+      name,
+      power: parseFloat(power),
+      hours: parseFloat(hours)
+    };
+
+    const updated = [...appliances, newApp];
+    setAppliances(updated);
+    localStorage.setItem('appliances', JSON.stringify(updated));
+    
+    setName('');
+    setPower('');
+    setHours('');
   };
 
-  const deleteAppliance = async (id: number) => {
-    try {
-      await fetch(`https://energymonitor-api-v2.azurewebsites.net/appliances/${id}`, { method: 'DELETE' });
-      fetchAppliances();
-    } catch (error) {
-      console.error("O'chirishda xatolik:", error);
-    }
+  const deleteAppliance = (id: number) => {
+    const updated = appliances.filter(a => a.id !== id);
+    setAppliances(updated);
+    localStorage.setItem('appliances', JSON.stringify(updated));
   };
 
   return (

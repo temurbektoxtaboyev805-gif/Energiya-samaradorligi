@@ -52,21 +52,24 @@ export default function Dashboard() {
   const [totalCost, setTotalCost] = useState(0);
   const [loading, setLoading] = useState(true);
 
-  const fetchData = async () => {
-    try {
-      const appRes = await fetch('https://energymonitor-api-v2.azurewebsites.net/appliances');
-      const apps = await appRes.json();
+  const fetchData = () => {
+    const savedApps = localStorage.getItem('appliances');
+    if (savedApps) {
+      const apps = JSON.parse(savedApps);
       setAppliances(apps);
-
-      const statsRes = await fetch('https://energymonitor-api-v2.azurewebsites.net/stats');
-      const stats = await statsRes.json();
-      setTotalKwh(stats.monthly_kwh);
-      setTotalCost(stats.total_cost);
-      setLoading(false);
-    } catch (error) {
-      console.error("Ma'lumotlarni yuklashda xatolik:", error);
-      setLoading(false);
+      
+      const kwh = apps.reduce((acc: number, a: Appliance) => acc + (a.power * a.hours * 30 / 1000), 0);
+      setTotalKwh(kwh);
+      
+      let cost = 0;
+      if (kwh <= 200) {
+        cost = kwh * 450;
+      } else {
+        cost = (200 * 450) + ((kwh - 200) * 900);
+      }
+      setTotalCost(cost);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
