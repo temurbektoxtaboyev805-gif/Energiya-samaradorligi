@@ -31,6 +31,16 @@ export default function AppliancesPage() {
     const saved = localStorage.getItem('appliances');
     if (saved) {
       setAppliances(JSON.parse(saved));
+    } else {
+      const demoApps = [
+        { id: 1, name: 'Muzlatgich', power: 150, hours: 24 },
+        { id: 2, name: 'Televizor', power: 100, hours: 5 },
+        { id: 3, name: 'Konditsioner', power: 1500, hours: 4 },
+        { id: 4, name: 'Chiroqlar', power: 50, hours: 6 },
+        { id: 5, name: 'Dazmol', power: 2000, hours: 0.5 }
+      ];
+      setAppliances(demoApps);
+      localStorage.setItem('appliances', JSON.stringify(demoApps));
     }
     setLoading(false);
   };

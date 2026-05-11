@@ -53,22 +53,35 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
 
   const fetchData = () => {
+    let apps = [];
     const savedApps = localStorage.getItem('appliances');
+    
     if (savedApps) {
-      const apps = JSON.parse(savedApps);
-      setAppliances(apps);
-      
-      const kwh = apps.reduce((acc: number, a: Appliance) => acc + (a.power * a.hours * 30 / 1000), 0);
-      setTotalKwh(kwh);
-      
-      let cost = 0;
-      if (kwh <= 200) {
-        cost = kwh * 450;
-      } else {
-        cost = (200 * 450) + ((kwh - 200) * 900);
-      }
-      setTotalCost(cost);
+      apps = JSON.parse(savedApps);
+    } else {
+      // Dastlabki namunaviy ma'lumotlar
+      apps = [
+        { id: 1, name: 'Muzlatgich', power: 150, hours: 24 },
+        { id: 2, name: 'Televizor', power: 100, hours: 5 },
+        { id: 3, name: 'Konditsioner', power: 1500, hours: 4 },
+        { id: 4, name: 'Chiroqlar', power: 50, hours: 6 },
+        { id: 5, name: 'Dazmol', power: 2000, hours: 0.5 }
+      ];
+      localStorage.setItem('appliances', JSON.stringify(apps));
     }
+
+    setAppliances(apps);
+    
+    const kwh = apps.reduce((acc: number, a: Appliance) => acc + (a.power * a.hours * 30 / 1000), 0);
+    setTotalKwh(kwh);
+    
+    let cost = 0;
+    if (kwh <= 200) {
+      cost = kwh * 450;
+    } else {
+      cost = (200 * 450) + ((kwh - 200) * 900);
+    }
+    setTotalCost(cost);
     setLoading(false);
   };
 
