@@ -54,11 +54,11 @@ export default function Dashboard() {
 
   const fetchData = async () => {
     try {
-      const appRes = await fetch('http://localhost:8000/appliances');
+      const appRes = await fetch('https://energymonitor-api-v2.azurewebsites.net/appliances');
       const apps = await appRes.json();
       setAppliances(apps);
 
-      const statsRes = await fetch('http://localhost:8000/stats');
+      const statsRes = await fetch('https://energymonitor-api-v2.azurewebsites.net/stats');
       const stats = await statsRes.json();
       setTotalKwh(stats.monthly_kwh);
       setTotalCost(stats.total_cost);

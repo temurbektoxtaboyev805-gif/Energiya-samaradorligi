@@ -29,7 +29,7 @@ export default function AppliancesPage() {
 
   const fetchAppliances = async () => {
     try {
-      const res = await fetch('http://localhost:8000/appliances');
+      const res = await fetch('https://energymonitor-api-v2.azurewebsites.net/appliances');
       const data = await res.json();
       setAppliances(data);
       setLoading(false);
@@ -48,7 +48,7 @@ export default function AppliancesPage() {
     if (!name || !power || !hours) return;
 
     try {
-      const res = await fetch('http://localhost:8000/appliances', {
+      const res = await fetch('https://energymonitor-api-v2.azurewebsites.net/appliances', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, power: parseFloat(power), hours: parseFloat(hours) }),
@@ -66,7 +66,7 @@ export default function AppliancesPage() {
 
   const deleteAppliance = async (id: number) => {
     try {
-      await fetch(`http://localhost:8000/appliances/${id}`, { method: 'DELETE' });
+      await fetch(`https://energymonitor-api-v2.azurewebsites.net/appliances/${id}`, { method: 'DELETE' });
       fetchAppliances();
     } catch (error) {
       console.error("O'chirishda xatolik:", error);
