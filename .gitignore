@@ -1,0 +1,17 @@
+﻿# Environment variables (maxfiy ma'lumotlar)
+.env
+.env.local
+.env.production
+
+# Zip fayllar
+*.zip
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Node modules
+node_modules/
+.next/
+out/
